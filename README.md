@@ -1,2 +1,2 @@
 # evolve
-Early stages of an evolution engine in C++
+Early stages of a C++ engine to solve important computational problems in biology.
