@@ -1,4 +1,8 @@
-Early stages of a C++ engine to solve important computational problems in biology.
-I am starting out by first trying to build a linear algebra engine w/ heavy LLVM IR
-optimizations in place.
-After that is done, and I have firmed grip over writing performant code, I will start working on CFD slowly, maybe partnering up with a physics major.
+This is the design document for the argan build system.
+It is touted to very closely mimic bazel with explicit depedency
+declrations via json files (a more sophisticated language can be developed later)
+
+
+1) Formalize build language schema, we need atleast cc_binary, cc_library and test. Start with this by reading how it is implemented by bazel/
+
+2) Write a parser to parse build files.

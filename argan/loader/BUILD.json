@@ -1,0 +1,12 @@
+{
+  "targets": [
+    {
+      "name": "loader",
+      "type": "cc_library",
+      "srcs": ["loader.cpp"],
+      "hdrs": ["loader.hpp", "build_file.hpp"],
+      "deps": [],
+      "data": []
+    }
+  ]
+}
