@@ -1,5 +1,5 @@
 CXX      := g++
-CXXFLAGS := -std=c++17 -Wall -Wextra -g -I.
+CXXFLAGS := -std=c++17 -Wall -Wextra -g -I. -Ithird_party
 LDFLAGS  :=
 
 BUILD_DIR := build
@@ -7,6 +7,7 @@ TARGET    := argan
 
 SRCS := main.cpp \
         loader/loader.cpp \
+        loader/build_file.cpp \
         analyzer/analyzer.cpp \
         executor/executor.cpp
 

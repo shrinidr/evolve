@@ -6,3 +6,11 @@ declrations via json files (a more sophisticated language can be developed later
 1) Formalize build language schema, we need atleast cc_binary, cc_library and test. Start with this by reading how it is implemented by bazel/
 
 2) Write a parser to parse build files.
+
+
+Developement specific notes are inside docs folder.
+cpp is a test directory which does trivial things and I made it to test if argan can
+successfully compile something or not.
+
+
+
