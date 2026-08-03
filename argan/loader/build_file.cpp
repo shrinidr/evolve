@@ -20,6 +20,8 @@ RawTargets parse_build_file(const std::string& build_path, const std::string& co
 
     RawTargets raw_targets{build_path, {}};
 
+    // Loop over all the targets inside of a build file.
+
     for (const auto& t : build_obj.at("targets")) {
         Target target;
         target.package = build_path;

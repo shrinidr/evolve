@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-
+#include <algorithm>
 
 const std::string BUILD_JSON = "BUILD.json";
 
@@ -16,6 +16,27 @@ void print_rule_map(const rule_map& m) {
             if (i + 1 < files.size()) std::cout << ", ";
         }
         std::cout << "]" << std::endl;
+    }
+}
+
+void print_str_vec(const std::string& label, const std::vector<std::string>& v) {
+    std::cout << label << ": [";
+    for (size_t i = 0; i < v.size(); ++i) {
+        std::cout << v[i];
+        if (i + 1 < v.size()) std::cout << ", ";
+    }
+    std::cout << "]" << std::endl;
+}
+
+void print_raw_targets(const RawTargets& raw_targets) {
+    std::cout << "RawTargets for build_path: " << raw_targets.build_path << std::endl;
+    for (const auto& target : raw_targets.targets) {
+        std::cout << "  Target " << target.package << ":" << target.name
+                   << " (" << target.type << ")" << std::endl;
+        print_str_vec("    srcs", target.srcs);
+        print_str_vec("    hdrs", target.hdrs);
+        print_str_vec("    deps", target.deps);
+        print_str_vec("    data", target.data);
     }
 }
 
@@ -47,10 +68,26 @@ RawTargets Loader::load(const std::string& build_path) {
 // Parse all the build files inside the global package 
 // mapping, check for correctness and create RawTargets
 std::pair<bool, RawTargets> Loader::parser(rule_map* package_dict) {
+    for (const auto& [key, value]: (*package_dict)){
+        std::string contents = read_build_file(key);
+        // Collect all the targets for this build file inside this dict.
+        RawTargets targets = parse_build_file(key, contents);
+        for (const Target target: targets.targets){
+            std::vector<std::string> srcs = target.srcs;
+            for (const std::string& src : srcs){
+                bool found = std::find(value.begin(), value.end(), src) != value.end();
+                if (!found) {
+                    std::cerr << "Source file " << src << " declared in target "
+                               << target.package << ":" << target.name
+                               << " was not found in package " << key << std::endl;
+                }
+            }
+        }
+        /*print_raw_targets(idk);
+        std::cout << std::endl;*/
 
+    }
 }
-
-
 
 bool path_ends_with(const std::filesystem::path& p, 
                     const std::string& suffix) {

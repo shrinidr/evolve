@@ -15,5 +15,5 @@ public:
                       std::string build_root,
                       rule_map* buildMap);
 
-    static std::pair<bool, RawTargets> Loader::parser(rule_map* package_dict);
+    static std::pair<bool, RawTargets> parser(rule_map* package_dict);
 };
